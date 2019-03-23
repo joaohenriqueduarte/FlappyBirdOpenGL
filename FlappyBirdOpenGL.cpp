@@ -67,9 +67,8 @@ void cenario(int escolha){
 	int x1=0,x2=0,x3=0;
 	int a=3,b=4,c=2,d=1,e=0;
 	
-	
-					//Grama
-					cores(7);
+				//Grama
+				cores(7);
     				glLineWidth(7.0f);  // aumenta a espessura das linhas
     				glBegin(GL_LINES);
         			glVertex2f(-20,-8.3);
@@ -84,7 +83,7 @@ void cenario(int escolha){
         			glVertex2f( 20,-8.45);
         			glVertex2f(-20,-8.5);
         			glVertex2f( 20,-8.5);
-					glVertex2f(-20,-8.6);
+				glVertex2f(-20,-8.6);
         			glVertex2f( 20,-8.6); 
     				glEnd();
     				
@@ -92,123 +91,122 @@ void cenario(int escolha){
     				
     				switch(x1) { //Estrutura de escolha da coordenada x do predio
 		
-            				case 0: //Dia
+            				case 0: //X do Predio 0
             						x = -16.50;
             						break;
-            				case 1: //Dia
+            				case 1: //X do Predio 1
             						x = -15.25;
             						break;
-            				case 2: //Dia
+            				case 2: //X do Predio 2
             						x = -14.1;
             						break;
-            				case 4: //Dia
+            				case 4: //X do Predio 3
             						x = -13.0;
             						break;
-            				case 5: //Dia
+            				case 5: //X do Predio 4
             						x = -11.5;
             						break;
-            				case 6: //Dia
+            				case 6: //X do Predio 5
             						x = -10.25;
             						break;
-            				case 7: //Dia
+            				case 7: //X do Predio 6
             						x = -9.1;
             						break;
-            				case 8: //Dia
+            				case 8: //X do Predio 7
             						x = -8.0;
             						break;
-            				case 9: //Dia
+            				case 9: //X do Predio 8
             						x = -6.5;
             						break;
-            				case 10: //Dia
+            				case 10: //X do Predio 9
             						x = -5.25;
             						break;
-            				case 11: //Dia
+            				case 11: //X do Predio 10
             						x = -4.1;
             						break;
-            				case 12: //Dia
+            				case 12: //X do Predio 11
             						x = -3.0;
             						break;
-            				case 13: //Dia
+            				case 13: //X do Predio 12
             						x = -1.5;
             						break;
-            				case 14: //Dia
+            				case 14: //X do Predio 13
             						x = -0.25;
             						break;
-            				case 15: //Dia
+            				case 15: //X do Predio 14
             						x = 0.9;
             						break;
-            				case 16: //Dia
+            				case 16: //X do Predio 15
             						x = 2.0;
             						break;
-            				case 17: //Dia
+            				case 17: //X do Predio 16
             						x = 3.5;
             						break;
-            				case 18: //Dia
+            				case 18: //X do Predio 17
             						x = 4.75;
             						break;
-            				case 19: //Dia
+            				case 19: //X do Predio 18
             						x = 5.9;
             						break;
-            				case 20: //Dia
+            				case 20: //X do Predio 19
             						x = 7.0;
             						break;
-            				case 21: //Dia
+            				case 21: //X do Predio 20
             						x = 8.5;
             						break;
-            				case 22: //Dia
+            				case 22: //X do Predio 21
             						x = 9.75;
             						break;
-            				case 23: //Dia
+            				case 23: //X do Predio 22
             						x = 10.9;
             						break;
-            				case 24: //Dia
+            				case 24: //X do Predio 23
             						x = 12.0;
             						break;
-            				case 25: //Dia
+            				case 25: //X do Predio 24
             						x = 13.1;
             						break;
-            				case 26: //Dia
+            				case 26: //X do Predio 25
             						x = 14.2;
             						break;
-            				case 27: //Dia
+            				case 27: ////X do Predio 26
             						x = 16.0;
             						break;
             		}
             		
             		switch(x2) { //Estrutura de escolha da coordenada y do predio
 		
-            				case 0: //Dia
+            				case 0: //Y do prédio
             						y = -7.72;
             						break;
-            				case 1: //Dia
+            				case 1: //Y do prédio
             						y = -7.58;
             						break;
-            				case 2: //Dia
+            				case 2: //Y do prédio
             						y = -7.7;
             						break;
-            				case 3: //Dia
+            				case 3: //Y do prédio
             						y = -7.58;
             						break;
             		}
             		switch(x3) { //Estrutura de escolha da escala z do predio
 		
-            				case 0: //Dia
+            				case 0: //Z do prédio
             						z = 1.0;
             						break;
-            				case 1: //Dia
+            				case 1: //Z do prédio
             						z = 1.3;
             						break;
-            				case 2: //Dia
+            				case 2: //Z do prédio
             						z = 1.05;
             						break;
-            				case 3: //Dia
+            				case 3: //Z do prédio
             						z = 1.3;
             						break;
-            		}
-						
+					
 						//Predios		
-            			cores(9); //Cor do predio
-            			glPushMatrix();
+            					cores(9); //Cor dos prédios
+            					glPushMatrix();
 						glTranslatef(x,y,0.00);
 						glScalef(1.0,z,0.00);
 						glutSolidCube(1.0);
@@ -227,8 +225,8 @@ void cenario(int escolha){
 					
 					//Janelas
 					cores(8);
-    				glPointSize(2.0f);
-    				glBegin(GL_POINTS);
+    					glPointSize(2.0f);
+    					glBegin(GL_POINTS);
 		
 					for(float i = -20.0; i<16.4; i){
 						for(float j = -8.15; j<-7.25; j){
@@ -237,14 +235,14 @@ void cenario(int escolha){
 						}
 						i = i+0.20;
 					}    
-    				glEnd();
+    					glEnd();
 	
 	switch(escolha) {
 		
             case 0: //Dia
             		glClearColor (0.53, 0.81, 0.98, 1.0); //Fundo Dia
-            
-            		cores(2);//Nuvem 1
+            		
+			cores(2);//Nuvem 1
     				glBegin(GL_POLYGON);
         			glVertex2f(-a,-c); 
         			glVertex2f(-b,-d); 
@@ -256,11 +254,9 @@ void cenario(int escolha){
         			glVertex2f( b, e);  
         			glVertex2f( b,-d);  
         			glVertex2f( a,-c); 
-    				glEnd();
-               
-               		//Nuvem 2
-            		
-					break;
+    				glEnd();//Fim da nuvem
+			
+			  break;
 					
 			case 1: //noite
 					glClearColor (0.0, 0.0, 0.5, 0.0); //Fundo Noite
@@ -278,7 +274,8 @@ void cenario(int escolha){
 							n2 = rand();
 							n2 = n2%10;
 							glVertex2f(-n1,n2);
-					}    
+					}
+			
     				glEnd();
     				//Janelas
     				cores(6);
