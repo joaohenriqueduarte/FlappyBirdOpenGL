@@ -6,9 +6,10 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <math.h>
+#define PI 3.1415926535
 
 static int t=0, a=0, z=1, x=0, count1=0, count2=0, c=0, i=0, y=0;	//inicializa??o das vari?veis
-static int score=0; //pontua��o
+static int score=0; //pontuação
 static int flag=0; 
 static const int FPS = 60;//Frames por segundo
 int m = 8000;
@@ -36,11 +37,11 @@ void cores(int escolha){
 					glColor3f (0.59, 0.29, 0.0);
 					break;
 						
-			case 4: //Azul c�u claro
+			case 4: //Azul céu claro
 					glColor3f (0.53, 0.81, 0.98);
 					break;
 			
-			case 5: //Azul c�u claro
+			case 5: //Azul céu claro
 					glColor3f (0.53, 0.81, 0.98);
 					break;
 					
@@ -57,17 +58,110 @@ void cores(int escolha){
 			case 9: //Cinza Escuro
 					glColor3f (0.66, 0.66, 0.66);
 					break;
+			case 10: //Cinza Escuro
+					glColor3f (0.41, 0.41, 0.41);
+					break;
+			case 11: //Ambar
+					glColor3f (1.0, 0.75, 0.0);
+					break;
 					
 	}
 	
+}
+
+void circulo(int cor, float rx, float ry, float px, float py){
+	
+	 float angle, raio_x, raio_y;
+     int i, circle_points = 1000;
+	
+	cores(cor);
+    glPointSize(1.0);
+    glBegin(GL_POLYGON);
+    raio_x = rx;
+    raio_y = ry;
+    
+    for(i = 0; i < circle_points; i++) {
+    	angle = (2*PI*i)/circle_points;
+    	glVertex2f(px+raio_x*cos(angle),py+raio_y*sin(angle));
+    }
+	glEnd();
+}
+
+void luasol(int escolha){
+     
+     
+     
+		switch(escolha) {
+		
+            		case 0: //Sol
+            			    circulo(11,4.2,3.0,-15.0,5.0);//Cor,Raio X, Raio Y, Posição X, Posição Y
+            			    circulo(6,3.9,2.8,-15.0,5.0);//Cor,Raio X, Raio Y, Posição X, Posição Y
+            				break;
+            				
+            		case 1: //Lua
+            				circulo(8,4.1,3.0,-15.0,5.0); //Cor,Raio X, Raio Y, Posição X, Posição Y
+            				circulo(10,0.3,0.2,-16.3,3.5);//Cor,Raio X, Raio Y, Posição X, Posição Y
+            				circulo(10,0.8,0.6,-14.0,5.5);//Cor,Raio X, Raio Y, Posição X, Posição Y
+            				circulo(10,0.6,0.4,-15.0,7.1);//Cor,Raio X, Raio Y, Posição X, Posição Y
+            				break;
+            		case 2: //Lua nova
+            				
+            				break;
+		}
+}
+
+void nuvens(){ //Ainda vou terminar
+	
+	int a=3,b=4,c=2,d=1,e=0;
+	cores(2);
+	glBegin(GL_POLYGON);
+	    glVertex2f(-a,-c); 
+	   	glVertex2f(-b,-d); 
+	    glVertex2f(-b, e); 
+	    glVertex2f(-b, d);
+	    glVertex2f(-a, c); 
+	    glVertex2f( a, c); 
+	    glVertex2f( b, d);  
+	    glVertex2f( b, e);  
+	    glVertex2f( b,-d);  
+	    glVertex2f( a,-c); 
+    glEnd();//Fim da nuvem
+    
+    	glPushMatrix();//inferior
+		glTranslatef(9.00,4.4,0.00);
+		glScalef(8.5,2.5,0.00);
+		glutSolidCube(1.0);
+		glPopMatrix();
+		circulo(2,1.6,1.25,4.6,4.4);//Cor,Raio X, Raio Y, Posição X, Posição Y
+		circulo(2,1.6,1.25,13.4,4.4);//Cor,Raio X, Raio Y, Posição X, Posição Y
+	
+}
+
+void janelas(int cor){
+	cores(cor);
+    glPointSize(2.0f);
+    glBegin(GL_POINTS);
+		for(float i = -17.0; i<16.4; i){
+			for(float j = -8.15; j<-7.25; j){
+				glVertex2f(i,j);
+				j = j+0.20;
+			}
+		  i = i+0.20;
+		}    
+   glEnd();	
 }
 
 void cenario(int escolha){
 
 	float x=-16.50,y=-7.72,z=1.0;
 	int x1=0,x2=0,x3=0;
-	int a=3,b=4,c=2,d=1,e=0;
+	float angle, raio_x, raio_y;
+	int circle_points = 1000;	
 	opcaoCenario = escolha;
+	
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT);
 	
 					//Grama
 					cores(7);
@@ -88,6 +182,7 @@ void cenario(int escolha){
 						glVertex2f(-20,-8.6);
 	        			glVertex2f( 20,-8.6); 
     				glEnd();
+    				
     				
     			for(int i=0; i<28; i++){ //Repeti??es dos predios
     				
@@ -178,36 +273,36 @@ void cenario(int escolha){
             		
             		switch(x2) { //Estrutura de escolha da coordenada y do predio
 		
-            				case 0: //Y do pr�dio
+            				case 0: //Y do prédio
             						y = -7.72;
             						break;
-            				case 1: //Y do pr�dio
+            				case 1: //Y do prédio
             						y = -7.58;
             						break;
-            				case 2: //Y do pr�dio
+            				case 2: //Y do prédio
             						y = -7.7;
             						break;
-            				case 3: //Y do pr�dio
+            				case 3: //Y do prédio
             						y = -7.58;
             						break;
             		}
             		switch(x3) { //Estrutura de escolha da escala z do predio
 		
-            				case 0: //Z do pr�dio
+            				case 0: //Z do prédio
             						z = 1.0;
             						break;
-            				case 1: //Z do pr�dio
+            				case 1: //Z do prédio
             						z = 1.3;
             						break;
-            				case 2: //Z do pr�dio
+            				case 2: //Z do prédio
             						z = 1.05;
             						break;
-            				case 3: //Z do pr�dio
+            				case 3: //Z do prédio
             						z = 1.3;
             						break;
-					
+					}
 						//Predios		
-            			cores(9); //Cor dos pr�dios
+            			cores(9); //Cor dos prédios
             			glPushMatrix();
 						glTranslatef(x,y,0.00);
 						glScalef(1.0,z,0.00);
@@ -223,45 +318,21 @@ void cenario(int escolha){
 						if(x3 == 3){
 							x3=0;
 						}		
-					}
-					
-					//Janelas
-					cores(8);
-    				glPointSize(2.0f);
-    				glBegin(GL_POINTS);
-						for(float i = -20.0; i<16.4; i){
-							for(float j = -8.15; j<-7.25; j){
-								glVertex2f(i,j);
-								j = j+0.20;
-							}
-							i = i+0.20;
-						}    
-    				glEnd();
+				}
+				janelas(8);
 	
 	switch(escolha) {
 		
             case 0: //Dia
             		glClearColor (0.53, 0.81, 0.98, 1.0); //Fundo Dia
-            		
-			cores(2);//Nuvem 1
-    				glBegin(GL_POLYGON);
-	        			glVertex2f(-a,-c); 
-	        			glVertex2f(-b,-d); 
-	        			glVertex2f(-b, e); 
-	        			glVertex2f(-b, d);
-	        			glVertex2f(-a, c); 
-	        			glVertex2f( a, c); 
-	        			glVertex2f( b, d);  
-	        			glVertex2f( b, e);  
-	        			glVertex2f( b,-d);  
-	        			glVertex2f( a,-c); 
-    				glEnd();//Fim da nuvem
-			
+            		luasol(0);
+    				nuvens();
 			  break;
 					
 			case 1: //noite
 					glClearColor (0.0, 0.0, 0.5, 0.0); //Fundo Noite
-					//Adicionar montanhas ao fundo
+					luasol(1);
+					
 					//Estrelas, ta bugado mais ta massa =D
     				cores(2);
     				glPointSize(2.0f);
@@ -278,25 +349,13 @@ void cenario(int escolha){
 						}
 			
     				glEnd();
-    				//Janelas
-    				cores(6);
-    				glPointSize(2.0f);
-    				glBegin(GL_POINTS);
-	    				for(float i = -20.0; i<16.4; i){
-							for(float j = -8.15; j<-7.25; j){
-								glVertex2f(i,j);
-								j = j+0.20;
-							}
-							i = i+0.20;
-						}    
-    				glEnd();
-    				
+    				janelas(6);
+						
 				break;
 		}
+		
 		glutPostRedisplay();
 		glShadeModel (GL_FLAT);
-	
-	}
 }
 
 void passaro(){
@@ -541,7 +600,7 @@ void timer(int value){
 	{
 		if(y==0)
 		{
-			MessageBox(0,"You Win �/","Win",MB_OK|MB_ICONINFORMATION);
+			MessageBox(0,"You Win õ/","Win",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 		else
@@ -561,26 +620,25 @@ void keyboard (unsigned char key, int x, int y){	//Adcionar mais fun??es
 
 		case 'w':
 			z=3;
-		break;
-
+			break;
+			
 		case 's':
 			z=4;
-		break;
+			break;
 
 		case 'a':
 			z=2;
-		break;
+			break;
 
 		case 'd':
 
 			z=1;
 			glutTimerFunc(100,timer,0);
-		break;
+			break;
 		
 		case 27:
 			exit(1); //ESC PARA SAIR
 			break;
-	
 
 	}
 }
