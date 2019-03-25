@@ -7,12 +7,13 @@
 #include <conio.h>
 #include <math.h>
 
-static int t=0, a=0, z=1, x=0, count1=0, count2=0, c=0, i=0, y=0;	//initialize the values required
-static int score=0;
-static int flag=0;
-static const int FPS = 60;//Ftames per Second
+static int t=0, a=0, z=1, x=0, count1=0, count2=0, c=0, i=0, y=0;	//inicializa??o das vari?veis
+static int score=0; //pontua��o
+static int flag=0; 
+static const int FPS = 60;//Frames por segundo
 int m = 8000;
 int n1,n2;
+int opcaoCenario;
 
 
 void cores(int escolha){
@@ -35,11 +36,11 @@ void cores(int escolha){
 					glColor3f (0.59, 0.29, 0.0);
 					break;
 						
-			case 4: //Azul céu claro
+			case 4: //Azul c�u claro
 					glColor3f (0.53, 0.81, 0.98);
 					break;
 			
-			case 5: //Azul céu claro
+			case 5: //Azul c�u claro
 					glColor3f (0.53, 0.81, 0.98);
 					break;
 					
@@ -62,13 +63,14 @@ void cores(int escolha){
 }
 
 void cenario(int escolha){
-	
+
 	float x=-16.50,y=-7.72,z=1.0;
 	int x1=0,x2=0,x3=0;
 	int a=3,b=4,c=2,d=1,e=0;
+	opcaoCenario = escolha;
 	
-				//Grama
-				cores(7);
+					//Grama
+					cores(7);
     				glLineWidth(7.0f);  // aumenta a espessura das linhas
     				glBegin(GL_LINES);
         			glVertex2f(-20,-8.3);
@@ -79,15 +81,15 @@ void cenario(int escolha){
     				cores(3);
     				glLineWidth(5.0f);  // aumenta a espessura das linhas
     				glBegin(GL_LINES);
-    				glVertex2f(-20,-8.45);
-        			glVertex2f( 20,-8.45);
-        			glVertex2f(-20,-8.5);
-        			glVertex2f( 20,-8.5);
-				glVertex2f(-20,-8.6);
-        			glVertex2f( 20,-8.6); 
+	    				glVertex2f(-20,-8.45);
+	        			glVertex2f( 20,-8.45);
+	        			glVertex2f(-20,-8.5);
+	        			glVertex2f( 20,-8.5);
+						glVertex2f(-20,-8.6);
+	        			glVertex2f( 20,-8.6); 
     				glEnd();
     				
-    			for(int i=0; i<28; i++){ //Repetição dos predios
+    			for(int i=0; i<28; i++){ //Repeti??es dos predios
     				
     				switch(x1) { //Estrutura de escolha da coordenada x do predio
 		
@@ -176,37 +178,37 @@ void cenario(int escolha){
             		
             		switch(x2) { //Estrutura de escolha da coordenada y do predio
 		
-            				case 0: //Y do prédio
+            				case 0: //Y do pr�dio
             						y = -7.72;
             						break;
-            				case 1: //Y do prédio
+            				case 1: //Y do pr�dio
             						y = -7.58;
             						break;
-            				case 2: //Y do prédio
+            				case 2: //Y do pr�dio
             						y = -7.7;
             						break;
-            				case 3: //Y do prédio
+            				case 3: //Y do pr�dio
             						y = -7.58;
             						break;
             		}
             		switch(x3) { //Estrutura de escolha da escala z do predio
 		
-            				case 0: //Z do prédio
+            				case 0: //Z do pr�dio
             						z = 1.0;
             						break;
-            				case 1: //Z do prédio
+            				case 1: //Z do pr�dio
             						z = 1.3;
             						break;
-            				case 2: //Z do prédio
+            				case 2: //Z do pr�dio
             						z = 1.05;
             						break;
-            				case 3: //Z do prédio
+            				case 3: //Z do pr�dio
             						z = 1.3;
             						break;
 					
 						//Predios		
-            					cores(9); //Cor dos prédios
-            					glPushMatrix();
+            			cores(9); //Cor dos pr�dios
+            			glPushMatrix();
 						glTranslatef(x,y,0.00);
 						glScalef(1.0,z,0.00);
 						glutSolidCube(1.0);
@@ -221,21 +223,20 @@ void cenario(int escolha){
 						if(x3 == 3){
 							x3=0;
 						}		
-			}
+					}
 					
 					//Janelas
 					cores(8);
-    					glPointSize(2.0f);
-    					glBegin(GL_POINTS);
-		
-					for(float i = -20.0; i<16.4; i){
-						for(float j = -8.15; j<-7.25; j){
-							glVertex2f(i,j);
-							j = j+0.20;
-						}
-						i = i+0.20;
-					}    
-    					glEnd();
+    				glPointSize(2.0f);
+    				glBegin(GL_POINTS);
+						for(float i = -20.0; i<16.4; i){
+							for(float j = -8.15; j<-7.25; j){
+								glVertex2f(i,j);
+								j = j+0.20;
+							}
+							i = i+0.20;
+						}    
+    				glEnd();
 	
 	switch(escolha) {
 		
@@ -244,16 +245,16 @@ void cenario(int escolha){
             		
 			cores(2);//Nuvem 1
     				glBegin(GL_POLYGON);
-        			glVertex2f(-a,-c); 
-        			glVertex2f(-b,-d); 
-        			glVertex2f(-b, e); 
-        			glVertex2f(-b, d);
-        			glVertex2f(-a, c); 
-        			glVertex2f( a, c); 
-        			glVertex2f( b, d);  
-        			glVertex2f( b, e);  
-        			glVertex2f( b,-d);  
-        			glVertex2f( a,-c); 
+	        			glVertex2f(-a,-c); 
+	        			glVertex2f(-b,-d); 
+	        			glVertex2f(-b, e); 
+	        			glVertex2f(-b, d);
+	        			glVertex2f(-a, c); 
+	        			glVertex2f( a, c); 
+	        			glVertex2f( b, d);  
+	        			glVertex2f( b, e);  
+	        			glVertex2f( b,-d);  
+	        			glVertex2f( a,-c); 
     				glEnd();//Fim da nuvem
 			
 			  break;
@@ -265,45 +266,65 @@ void cenario(int escolha){
     				cores(2);
     				glPointSize(2.0f);
     				glBegin(GL_POINTS);
-		
-					for(int i = -20; i<20; i++){
-
-							glVertex2f(n1,n2);
-							n1 = rand();
-							n1 = n1%20;
-							n2 = rand();
-							n2 = n2%10;
-							glVertex2f(-n1,n2);
-					}
+			
+						for(int i = -20; i<20; i++){
+	
+								glVertex2f(n1,n2);
+								n1 = rand();
+								n1 = n1%20;
+								n2 = rand();
+								n2 = n2%10;
+								glVertex2f(-n1,n2);
+						}
 			
     				glEnd();
     				//Janelas
     				cores(6);
     				glPointSize(2.0f);
     				glBegin(GL_POINTS);
-    				for(float i = -20.0; i<16.4; i){
-						for(float j = -8.15; j<-7.25; j){
-							glVertex2f(i,j);
-							j = j+0.20;
-						}
-						i = i+0.20;
-					}    
+	    				for(float i = -20.0; i<16.4; i){
+							for(float j = -8.15; j<-7.25; j){
+								glVertex2f(i,j);
+								j = j+0.20;
+							}
+							i = i+0.20;
+						}    
     				glEnd();
     				
-					break;
+				break;
 		}
 		glutPostRedisplay();
 		glShadeModel (GL_FLAT);
 	
+	}
 }
 
 void passaro(){
-	
-	cores(0); //Cor do passaro
+	//Define o quadrado que eh a base do passaro
+	cores(6); //Cor do passaro
 	glPushMatrix();
 	glTranslatef(-15.0+(GLfloat)a,(GLfloat)y,0.0);
 	glScalef(0.1,0.08,0.08);
-	glutSolidCube(1.0);
+	glutSolidCube(6.0);
+	
+	//define a asa do passaro
+	cores(1);
+	glRotatef(45.0f,0.0f, 0.0f, 1.0f);
+	glBegin(GL_TRIANGLES);
+               glVertex2f(-2.0f, -2.0f);
+               glVertex2f(0.0f, 7.0f);
+               glVertex2f(2.0f, -2.0f);              
+    glEnd();
+    
+    //define o bico do passaro
+    cores(0);
+	glRotatef(230.0f,0.0f, 0.0f, 1.0f);
+	glTranslatef(1.0f, 4.0f, 0.0f);
+    glBegin(GL_TRIANGLES);
+               glVertex2f(-1.0f, -1.0f);
+               glVertex2f(0.0f, 2.0f);
+               glVertex2f(1.0f, -1.0f);              
+    glEnd();
 	glPopMatrix();
 	
 }
@@ -396,11 +417,11 @@ void canos(){
 	
 }
 
-void display(void){ // Melhorar
+void display(){ // Melhorar
 	
 	glClear (GL_COLOR_BUFFER_BIT);
 	
-	cenario(1); //Chamada do cenario (0 Dia e 1 Noite)
+	cenario(opcaoCenario); //Chamada do cenario (0 Dia e 1 Noite)
 
 	passaro(); //Chamada do passaro
 	
@@ -410,37 +431,34 @@ void display(void){ // Melhorar
 	glutSwapBuffers();
 }
 
-void reshape(int w, int h){ //Alterar tamanho da janela
+void AlteraTamanhoJanela(GLsizei w, GLsizei h){  //Alterar tamanho da janela
+	//GLsizei largura, altura;
 
+	glViewport(0, 0, w, h);
 
-	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity ();
-	gluPerspective(60, (GLfloat) w/(GLfloat) h, 0.2, 20.0);
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluLookAt (0.0, 0.0, 15.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	//gluOrtho2D (-20.0f, 20.0f, -20.0f, 20.0f);
+
+	gluOrtho2D (-20.0f, 20.0f, -8.5f, 8.5f);
+	
 }
 
-void timer(int value){ //Estudar 
-
-	//Incrementation
-	//X translation...Continous.
+void timer(int value){
+	//Continua a incrementar o X do movimento
 	if(z==1)
 	{
 		a=a+1;
 		glutPostRedisplay();
 		glutTimerFunc(m/FPS,timer,value);
 	}
-	//Back to Pavalion..
+	
 	else if(z==2)
 	{
 		a=0;y=0;
 		glutPostRedisplay();
 	}
 
-	//w..move up
+	//w - move para cima
 	else if(z==3)
 	{
 		y=(y+1)%9;
@@ -448,7 +466,7 @@ void timer(int value){ //Estudar
 		z=1;
 		glutTimerFunc(m/FPS,timer,value);
 	}
-	//s..move down
+	//s - move para baixo
 	else if(z==4)
 	{
 		y=(y-1)%9;
@@ -457,10 +475,8 @@ void timer(int value){ //Estudar
 		glutTimerFunc(m/FPS,timer,value);
 	}
 
-		//printf("\t%d\t%d\n",a,y);
 
-
-	// Collision Conditions
+	// Condi??o de colis?es
 	if(a==3)
 	{
 		flag=1;
@@ -469,6 +485,7 @@ void timer(int value){ //Estudar
 		else
 		{
 			printf("\n\nSCORE : %d\n",score);
+			MessageBox(0,"You Lose :(","Lose",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 	}
@@ -480,6 +497,7 @@ void timer(int value){ //Estudar
 		else
 		{
 			printf("\n\nSCORE : %d\n",score);
+			MessageBox(0,"You Lose :(","Lose",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 	}
@@ -491,6 +509,7 @@ void timer(int value){ //Estudar
 		else
 		{
 			printf("\n\nSCORE : %d\n",score);
+			MessageBox(0,"You Lose :(","Lose",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 	}
@@ -502,6 +521,7 @@ void timer(int value){ //Estudar
 		else
 		{
 			printf("\n\nSCORE : %d\n",score);
+			MessageBox(0,"You Lose :(","Lose",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 	}
@@ -513,6 +533,7 @@ void timer(int value){ //Estudar
 		else
 		{
 			printf("\n\nSCORE : %d\n",score);
+			MessageBox(0,"You Lose :(","Lose",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 	}
@@ -520,7 +541,7 @@ void timer(int value){ //Estudar
 	{
 		if(y==0)
 		{
-			MessageBox(0,"You Win õ/","Win",MB_OK|MB_ICONINFORMATION);
+			MessageBox(0,"You Win �/","Win",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 		else
@@ -533,7 +554,7 @@ void timer(int value){ //Estudar
 	
 }
 
-void keyboard (unsigned char key, int x, int y){	//Adcionar mais funções
+void keyboard (unsigned char key, int x, int y){	//Adcionar mais fun??es
 
 
 	switch (key){
@@ -564,13 +585,13 @@ void keyboard (unsigned char key, int x, int y){	//Adcionar mais funções
 	}
 }
 
-void MenuPrincipal(int op){ //Menu Principal não terminado
+void MenuPrincipal(int op){ //Menu Principal n?o terminado
 	
 }
 
-void MenuInformacaoes(int op){ //Informações do Menu
+void MenuInformacaoes(int op){ //Informa??es do Menu
 	
-   switch(op) { //Seleção do menu
+   switch(op) { //Sele??o do menu
    	
             case 0:
                     MessageBox(0,"Em desenvolvimento","Cores",MB_OK|MB_ICONINFORMATION);
@@ -579,7 +600,7 @@ void MenuInformacaoes(int op){ //Informações do Menu
                     MessageBox(0,"W,S,A,D para movimentar o passaro e ESC para sair","Teclas",MB_OK|MB_ICONINFORMATION);
                     break;
             case 2:
-                    MessageBox(0,"Chegar até o final sem bater nos canos","Regras",MB_OK|MB_ICONINFORMATION);
+                    MessageBox(0,"Chegar ate o final sem bater nos canos","Regras",MB_OK|MB_ICONINFORMATION);
                     break;
     }
 } 
@@ -588,7 +609,7 @@ void MenuMouse(){ //Menu do Mouse
 
 int menu,submenuFundo,submenuInfo,submenuJanela;
 
-    submenuFundo = glutCreateMenu(cenario);
+    submenuFundo = glutCreateMenu(cenario); //Esta funcao nao esta mudando o cenario, o cenario esta sendo gerado estaticamente la funcao display, precisamos resolver
 	glutAddMenuEntry("Dia",0);
 	glutAddMenuEntry("Noite",1);
 	
@@ -598,7 +619,7 @@ int menu,submenuFundo,submenuInfo,submenuJanela;
 	glutAddMenuEntry("Regras",2);
 
    	menu = glutCreateMenu(MenuPrincipal);
-	glutAddSubMenu("Informações",submenuInfo);
+	glutAddSubMenu("Informacoes",submenuInfo);
     glutAddSubMenu("Mapa",submenuFundo);
     
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
@@ -609,10 +630,10 @@ void GerenciaMouse(int button, int state, int x, int y){ //Gerenciamento do Mous
 	
 	
     if (state == GLUT_DOWN) {
-        MenuMouse(); //Chamada da função menu mouse
+        MenuMouse(); //Chamada da funcao menu mouse
 	}
 	
-    if (button == GLUT_LEFT_BUTTON){ //Botão Esquerdo Muda Cor
+    if (button == GLUT_LEFT_BUTTON){ //Botao Esquerdo Muda Cor
     
 	}
 	
@@ -621,13 +642,13 @@ void GerenciaMouse(int button, int state, int x, int y){ //Gerenciamento do Mous
 
 int main(){
 	
-	printf("Desenvolvido por Joao Henrique, Paulo Bruni e Ezau tertuliano \n");
+	printf("Desenvolvido por Joao Henrique, Paulo Bruny e Ezau Tertuliano \n");
 	
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB); //OpenGL
-	glutInitWindowSize (800, 600); //Resolução
-	glutInitWindowPosition (100, 100); //Posição Inicial
+	glutInitWindowSize (800, 600); //Resolucao
+	glutInitWindowPosition (0, 0); //Posicao Inicial definido para o canto superior de qualquer tela
 	glutCreateWindow("Flappy C Bird"); //Nome da janela
-	glutReshapeFunc(reshape);//Maximização
+	glutReshapeFunc(AlteraTamanhoJanela);//Maximiza??o e redimensionamento da janela
 	glutDisplayFunc(display);//Display
 	glutMouseFunc(GerenciaMouse);//Gerenciador de Mouse
 	glutKeyboardFunc(keyboard); //Gerenciamento de teclado
