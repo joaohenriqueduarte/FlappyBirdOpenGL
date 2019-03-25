@@ -14,7 +14,9 @@ static int flag=0;
 static const int FPS = 60;//Frames por segundo
 int m = 8000;
 int n1,n2;
-int opcaoCenario;
+int opcaoCenario, rotacao;
+bool energia=0;
+GLfloat ang2 = -90;
 
 
 void cores(int escolha){
@@ -78,6 +80,50 @@ void circulo(int cor, float rx, float ry, float px, float py){
 	glEnd();
 }
 
+void paleta(){
+	cores(2);
+		glBegin(GL_TRIANGLES);                                          
+                glVertex3f( 0.5f, 0.05f, 0.0f); // Topo
+                glVertex3f(-0.05f,-0.5f, 0.0f); // Esquerda embaixo
+                glVertex3f( 1.5f,-1.5f, 0.0f);  // Direita embaixo
+        glEnd(); 
+}
+
+void eolica(int rt){
+		
+	rotacao = rt;
+		
+		//Base
+		cores(8);
+		glPushMatrix();
+		glTranslatef(-17.4,-7.15,0.00);
+		glScalef(0.50,2.5,0.00);
+		glutSolidCube(1.0);
+		glPopMatrix();
+		//Circulo
+		circulo(9,0.5,0.39,-17.4,-6.0);//Cor,Raio X, Raio Y, Posição X, Posição Y
+		//paleta    
+		
+ 		switch(rt) {
+		
+			case 0:
+				glTranslatef(-17.4f,-6.0f,0.0f);
+				glRotatef(ang2,0.0f,0.0f,1.0f);
+				paleta();
+				energia=0;
+				break;
+            case 1:
+				glTranslatef(-17.4f,-6.0f,0.0f);
+				glRotatef(ang2,0.0f,0.0f,1.0f);
+				paleta();
+				ang2-=5;
+				energia =1;
+				break;
+		}
+		
+		glFlush();
+}
+
 void luasol(int escolha){
      
 		switch(escolha) {
@@ -100,30 +146,23 @@ void luasol(int escolha){
 }
 
 void nuvens(){ //Ainda vou terminar
-	
-	int a=3,b=4,c=2,d=1,e=0;
-	cores(2);
-	glBegin(GL_POLYGON);
-	    glVertex2f(-a,-c); 
-	   	glVertex2f(-b,-d); 
-	    glVertex2f(-b, e); 
-	    glVertex2f(-b, d);
-	    glVertex2f(-a, c); 
-	    glVertex2f( a, c); 
-	    glVertex2f( b, d);  
-	    glVertex2f( b, e);  
-	    glVertex2f( b,-d);  
-	    glVertex2f( a,-c); 
-    glEnd();//Fim da nuvem
-    
-    	glPushMatrix();//inferior
+		//Nuvem 1
+    	cores(2);
+    	glPushMatrix();
 		glTranslatef(9.00,4.4,0.00);
 		glScalef(8.5,2.5,0.00);
 		glutSolidCube(1.0);
 		glPopMatrix();
 		circulo(2,1.6,1.25,4.6,4.4);//Cor,Raio X, Raio Y, Posição X, Posição Y
 		circulo(2,1.6,1.25,13.4,4.4);//Cor,Raio X, Raio Y, Posição X, Posição Y
-	
+		//Nuvem2
+		glPushMatrix();
+		glTranslatef(-4.0,6.5,0.00);
+		glScalef(8.5,2.5,0.00);
+		glutSolidCube(1.0);
+		glPopMatrix();
+		circulo(2,1.6,1.25,0.4,6.5);//Cor,Raio X, Raio Y, Posição X, Posição Y
+		circulo(2,1.6,1.25,-8.4,6.5);//Cor,Raio X, Raio Y, Posição X, Posição Y
 }
 
 void janelas(int cor){
@@ -160,7 +199,7 @@ void predios(){
 }
 
 void cenario(int escolha){
-					
+							
 	opcaoCenario = escolha;
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -218,7 +257,11 @@ void cenario(int escolha){
 						}
 			
     				glEnd();
-    				janelas(6);	
+    				if(energia == 1){
+    					janelas(6);	
+					}else{
+						janelas(8);	
+					}
 					break;
 		}
 	glutPostRedisplay();
@@ -273,7 +316,7 @@ void canos(){
 	}	
 }
 
-void printText(int x, int y, int comprimento, char String[25]) //Fun��o para impress�o de texto no formato BitMap
+void printText(int x, int y, int comprimento, char String[25]) //Fun��o para impress�o de texto no formato BitMap
 {
 	glColor3f(1, 0.5, 0);
 	
@@ -318,6 +361,7 @@ void display(){ // Melhorar
 	canos(); //Chama os Canos
 	mostraPlacar();
 	mostrarDificuldade();
+	eolica(rotacao);
 	glFlush();
 	glutSwapBuffers();
 }
@@ -424,6 +468,18 @@ void timer(int value){
 	}	
 }
 
+void TeclasEspeciais(int key, int x, int y){
+    
+	// Rotaciona braco
+	if(key == GLUT_KEY_PAGE_UP){
+		eolica(1);
+	}//ang2-=5;
+	if(key == GLUT_KEY_PAGE_DOWN){
+		eolica(0);        
+    }//ang2+=5;  
+	glutPostRedisplay();
+}
+
 void keyboard (unsigned char key, int x, int y){	//Adcionar mais fun??es
 
 	switch (key){
@@ -449,7 +505,7 @@ void keyboard (unsigned char key, int x, int y){	//Adcionar mais fun??es
 		case 27:
 			exit(1); //ESC PARA SAIR
 			break;
-	}
+	}    
 }
 
 void TrocaDificuldade(int opcao){
@@ -457,6 +513,7 @@ void TrocaDificuldade(int opcao){
 }
 
 void MenuPrincipal(int op){ //Menu Principal n?o terminado	
+
 }
 
 void MenuInformacaoes(int op){ //Informa??es do Menu
@@ -464,10 +521,21 @@ void MenuInformacaoes(int op){ //Informa??es do Menu
    switch(op) { //Sele??o do menu
    	
             case 0:
-                    MessageBox(0,"W,S,A,D para movimentar o passaro e ESC para sair","Teclas",MB_OK|MB_ICONINFORMATION);
+                    MessageBox(0,"W - Movimenta para cima\n"
+					"S - Movimenta para baixo\n"
+					"A - Volta para o inicio\n"
+					"D - Movimentar o passaro\n"
+					"ESC - Para sair\n"
+					"PageUp - Liga o gerador eólico\n"
+					"PageDown - Desliga o gerador eólico","Teclas",MB_OK|MB_ICONINFORMATION);
                     break;
             case 1:
                     MessageBox(0,"Chegar ate o final sem bater nos canos","Regras",MB_OK|MB_ICONINFORMATION);
+                    break;
+            case 2:
+                    MessageBox(0,"Esté jogo tem o objetivo de avaliação da disciplina de Computação Gráfica, ministrada pelo docente Jorge Cavalcanti.\n" 
+					"E foi desenvolvido pelos alunos:"
+					"\nJoão Henrique Lima Duarte\nEzaú Tertuliano da Silva\nPaulo Bruny de Lima\n ","Objetivo",MB_OK|MB_ICONINFORMATION);
                     break;
     }
 } 
@@ -483,6 +551,7 @@ int menu,submenuFundo,submenuInfo,submenuJanela, submenuDificuldade;
 	submenuInfo = glutCreateMenu(MenuInformacaoes);
 	glutAddMenuEntry("Teclas",0);
 	glutAddMenuEntry("Regras",1);
+	glutAddMenuEntry("Objetivo",2);
 	
 	submenuDificuldade = glutCreateMenu(TrocaDificuldade);
 	glutAddMenuEntry("Mel na chupeta", 8000);
@@ -515,14 +584,15 @@ int main(){
 	printf("Desenvolvido por Joao Henrique, Paulo Bruny e Ezau Tertuliano \n");
 	
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB); //OpenGL
-	glutInitWindowSize (800, 600); //Resolucao
+	glutInitWindowSize (1000, 600); //Resolucao
 	glutInitWindowPosition (0, 0); //Posicao Inicial definido para o canto superior de qualquer tela
 	glutCreateWindow("Flappy C Bird"); //Nome da janela
 	glutReshapeFunc(AlteraTamanhoJanela);//Maximiza??o e redimensionamento da janela
 	glutDisplayFunc(display);//Display
 	glutMouseFunc(GerenciaMouse);//Gerenciador de Mouse
+	glutSpecialFunc(TeclasEspeciais);
 	glutKeyboardFunc(keyboard); //Gerenciamento de teclado
-	
+	MessageBox(0,"Click com o botão direito do mouse para acessar o menu","Informação",MB_OK|MB_ICONINFORMATION);
 	glutMainLoop();//Loop
 	return 0;
 }//Fim Main
