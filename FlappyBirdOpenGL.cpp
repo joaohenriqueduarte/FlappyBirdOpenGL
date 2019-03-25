@@ -585,6 +585,10 @@ void keyboard (unsigned char key, int x, int y){	//Adcionar mais fun??es
 	}
 }
 
+void TrocaDificuldade(int opcao){
+	m = opcao;
+}
+
 void MenuPrincipal(int op){ //Menu Principal n?o terminado
 	
 }
@@ -607,7 +611,7 @@ void MenuInformacaoes(int op){ //Informa??es do Menu
 
 void MenuMouse(){ //Menu do Mouse
 
-int menu,submenuFundo,submenuInfo,submenuJanela;
+int menu,submenuFundo,submenuInfo,submenuJanela, submenuDificuldade;
 
     submenuFundo = glutCreateMenu(cenario); //Esta funcao nao esta mudando o cenario, o cenario esta sendo gerado estaticamente la funcao display, precisamos resolver
 	glutAddMenuEntry("Dia",0);
@@ -617,10 +621,16 @@ int menu,submenuFundo,submenuInfo,submenuJanela;
 	glutAddMenuEntry("Cores",0);
 	glutAddMenuEntry("Teclas",1);
 	glutAddMenuEntry("Regras",2);
+	
+	submenuDificuldade = glutCreateMenu(TrocaDificuldade);
+	glutAddMenuEntry("Mel na chupeta", 8000);
+	glutAddMenuEntry("Fica ligado", 6500);
+	glutAddMenuEntry("Num vai dar nao", 4000);
 
    	menu = glutCreateMenu(MenuPrincipal);
 	glutAddSubMenu("Informacoes",submenuInfo);
     glutAddSubMenu("Mapa",submenuFundo);
+    glutAddSubMenu("Dificuldade",submenuDificuldade);
     
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 
