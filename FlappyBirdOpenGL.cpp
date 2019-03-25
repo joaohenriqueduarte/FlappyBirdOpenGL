@@ -8,8 +8,8 @@
 #include <math.h>
 #define PI 3.1415926535
 
-static int t=0, a=0, z=1, x=0, count1=0, count2=0, c=0, i=0, y=0;	//inicializa??o das vari?veis
-static int score=0; //pontuação
+static int t=0, a=0, z=1, x=0, count1=0, count2=0, c=0, i=0, y=0;	//inicializacao das vari?veis
+static int score=0; //pontuacao
 static int flag=0; 
 static const int FPS = 60;//Frames por segundo
 int m = 8000;
@@ -316,12 +316,51 @@ void canos(){
 	}	
 }
 
+void printText(int x, int y, int comprimento, char String[25]) //Fun��o para impress�o de texto no formato BitMap
+{
+	glColor3f(1, 0.5, 0);
+	
+    glRasterPos2i(x,y);
+    
+    for (int i=0; i<comprimento; i++)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, String[i]);
+   
+	}
+    
+
+}
+
+void mostraPlacar(){
+	char placar[10];
+	
+	sprintf(placar, "Score: %d", score);
+	printText(-20, -5, 9, placar);
+}
+
+void mostrarDificuldade(){
+	char dif[25];
+	
+	if(m == 8000){
+		sprintf(dif, "Mel na chupeta");
+		printText(-20, -6, 14, dif);
+	} else if(m == 6500){
+		sprintf(dif, "Fica ligado");
+		printText(-20, -6, 11, dif);
+	}else{
+		sprintf(dif, "Num vai dar nao");
+		printText(-20, -6, 15, dif);
+	}
+}
+
 void display(){ // Melhorar
 	
 	glClear (GL_COLOR_BUFFER_BIT);
 	cenario(opcaoCenario); //Chamada do cenario (0 Dia e 1 Noite)
 	passaro(); //Chamada do passaro
 	canos(); //Chama os Canos
+	mostraPlacar();
+	mostrarDificuldade();
 	eolica(rotacao);
 	glFlush();
 	glutSwapBuffers();
@@ -419,7 +458,7 @@ void timer(int value){
 	}
 	else if(a==30&&flag==5){
 		if(y==0){
-			MessageBox(0,"You Win õ/","Win",MB_OK|MB_ICONINFORMATION);
+			MessageBox(0,"You Win o/","Win",MB_OK|MB_ICONINFORMATION);
 			exit(0);
 		}
 		else{
@@ -538,6 +577,7 @@ void GerenciaMouse(int button, int state, int x, int y){ //Gerenciamento do Mous
 	}
     glutPostRedisplay();
 }
+
 
 int main(){
 	
